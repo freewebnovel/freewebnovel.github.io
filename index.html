@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebNovel PDF Extractor</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1e1e2f, #292943, #3d3d5c);
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #00ffe5;
+      text-shadow: 0 0 15px #00ffe5;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    input, select {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      outline: none;
+    }
+    button {
+      background: linear-gradient(90deg, #00ffe5, #0077ff);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📚 WebNovel Extractor</h1>
+    <p>Paste a novel link below (from supported sites like FreeWebNovel, WebNovel, ScribbleHub, etc).</p>
+    <input type="text" id="novelUrl" placeholder="Paste novel link here...">
+    <select id="format">
+      <option value="pdf">Download as PDF</option>
+      <option value="epub">Download as EPUB (coming soon)</option>
+    </select>
+    <button onclick="extractNovel()">Download</button>
+    <div id="status"></div>
+  </div>
+  <div class="footer">
+    &copy; 2025 WebNovelPDF | Built by Okibe
+  </div>
+
+  <script>
+    async function extractNovel() {
+      const url = document.getElementById('novelUrl').value.trim();
+      const format = document.getElementById('format').value;
+      const status = document.getElementById('status');
+      if (!url) {
+        status.innerText = '⚠️ Please paste a novel link first.';
+        return;
+      }
+
+      status.innerText = '⏳ Extracting novel info...';
+
+      try {
+        const res = await fetch('http://localhost:3000/extract', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url })
+        });
+        const data = await res.json();
+        if (!data.title) {
+          status.innerText = '❌ Failed to extract novel data.';
+          return;
+        }
+
+        status.innerText = '📄 Generating PDF...';
+
+        const pdfRes = await fetch('http://localhost:3000/download-pdf', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: data.title,
+            author: data.author,
+            description: data.description
+          })
+        });
+
+        const blob = await pdfRes.blob();
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${data.title}.pdf`;
+        link.click();
+
+        status.innerText = '✅ Download started!';
+      } catch (err) {
+        console.error(err);
+        status.innerText = '❌ Something went wrong.';
+      }
+    }
+  </script>
+</body>
+</html>
