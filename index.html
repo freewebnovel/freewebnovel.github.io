@@ -1,128 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebNovel PDF Extractor</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreeWebNovel PDF Extractor</title>
   <style>
     body {
-      background: linear-gradient(135deg, #1e1e2f, #292943, #3d3d5c);
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #121212, #1e1e2f, #232343);
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
+      text-align: center;
+      padding: 60px;
     }
     h1 {
-      color: #00ffe5;
-      text-shadow: 0 0 15px #00ffe5;
+      font-size: 2.5rem;
+      color: #00ffff;
     }
-    .container {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-      width: 90%;
-      max-width: 500px;
-      text-align: center;
+    p {
+      font-size: 1.1rem;
+      color: #ccccff;
+      margin-bottom: 30px;
     }
-    input, select, button {
-      width: 100%;
+    input {
+      width: 60%;
       padding: 12px;
-      margin: 10px 0;
       border: none;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-    input, select {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      outline: none;
+      border-radius: 8px;
+      font-size: 1rem;
     }
     button {
-      background: linear-gradient(90deg, #00ffe5, #0077ff);
-      color: #000;
+      padding: 12px 20px;
+      background-color: #00ffff;
+      border: none;
+      border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
     }
     button:hover {
-      transform: scale(1.05);
+      background-color: #00cccc;
     }
-    .footer {
-      margin-top: 30px;
-      font-size: 13px;
-      color: #ccc;
+    footer {
+      margin-top: 50px;
+      color: #888;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>📚 WebNovel Extractor</h1>
-    <p>Paste a novel link below (from supported sites like FreeWebNovel, WebNovel, ScribbleHub, etc).</p>
-    <input type="text" id="novelUrl" placeholder="Paste novel link here...">
-    <select id="format">
-      <option value="pdf">Download as PDF</option>
-      <option value="epub">Download as EPUB (coming soon)</option>
-    </select>
-    <button onclick="extractNovel()">Download</button>
-    <div id="status"></div>
-  </div>
-  <div class="footer">
-    &copy; 2025 WebNovelPDF | Built by Okibe
-  </div>
+  <h1>📚 FreeWebNovel PDF Extractor</h1>
+  <p>Paste your novel link below to download it as a PDF or EPUB.</p>
+  <input type="text" placeholder="Enter novel link..." id="novelLink" />
+  <br><br>
+  <button>Extract & Download</button>
 
-  <script>
-    async function extractNovel() {
-      const url = document.getElementById('novelUrl').value.trim();
-      const format = document.getElementById('format').value;
-      const status = document.getElementById('status');
-      if (!url) {
-        status.innerText = '⚠️ Please paste a novel link first.';
-        return;
-      }
-
-      status.innerText = '⏳ Extracting novel info...';
-
-      try {
-        const res = await fetch('http://localhost:3000/extract', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url })
-        });
-        const data = await res.json();
-        if (!data.title) {
-          status.innerText = '❌ Failed to extract novel data.';
-          return;
-        }
-
-        status.innerText = '📄 Generating PDF...';
-
-        const pdfRes = await fetch('http://localhost:3000/download-pdf', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            title: data.title,
-            author: data.author,
-            description: data.description
-          })
-        });
-
-        const blob = await pdfRes.blob();
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `${data.title}.pdf`;
-        link.click();
-
-        status.innerText = '✅ Download started!';
-      } catch (err) {
-        console.error(err);
-        status.innerText = '❌ Something went wrong.';
-      }
-    }
-  </script>
+  <footer>Supported sites: FreeWebNovel, WebNovel, ScribbleHub (more coming soon)</footer>
 </body>
 </html>
+
