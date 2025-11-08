@@ -122,6 +122,8 @@
   </footer>
 
   <script>
+    const backendUrl = "https://hypoplastic-twanna-uneclectic.ngrok-free.dev";
+
     async function downloadNovel() {
       const url = document.getElementById('novelUrl').value.trim();
       const message = document.getElementById('message');
@@ -134,20 +136,18 @@
       message.textContent = "⏳ Extracting novel, please wait...";
 
       try {
-        // Update this to your backend URL later
-        const response = await fetch('http://localhost:3000/extract', {
+        const response = await fetch(`${backendUrl}/extract`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url })
         });
 
         const data = await response.json();
-        console.log(data);
 
         if (data.title) {
           message.innerHTML = `✅ Extracted: <b>${data.title}</b> — now preparing PDF...`;
 
-          const pdfResponse = await fetch('http://localhost:3000/download-pdf', {
+          const pdfResponse = await fetch(`${backendUrl}/download-pdf`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
