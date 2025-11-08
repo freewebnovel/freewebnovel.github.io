@@ -1,178 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free WebNovel PDF</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #141e30, #243b55);
-      color: #fff;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free WebNovel Downloader</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
 
-    header {
-      background: linear-gradient(90deg, #ff6a00, #ee0979);
-      padding: 1rem 0;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
+  header {
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
+    padding: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
+  header h1 { margin: 0; font-size: 2rem; }
 
-    main {
-      padding: 2rem;
-      max-width: 600px;
-      margin: auto;
-    }
+  main {
+    padding: 2rem;
+    max-width: 600px;
+    margin: auto;
+  }
 
-    input, button {
-      width: 100%;
-      padding: 1rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: none;
-      margin-top: 1rem;
-    }
+  input, button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    margin-top: 1rem;
+  }
 
-    input {
-      outline: none;
-      border: 2px solid #ff6a00;
-    }
+  input {
+    outline: none;
+    border: 2px solid #ff6a00;
+  }
 
-    button {
-      background: linear-gradient(90deg, #ff6a00, #ee0979);
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
+  button {
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
 
-    button:hover {
-      transform: scale(1.05);
-    }
+  button:hover { transform: scale(1.05); }
 
-    footer {
-      margin-top: 3rem;
-      padding: 1rem;
-      background-color: rgba(0, 0, 0, 0.2);
-    }
+  .supported {
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    padding: 1rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
 
-    .supported {
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
-      padding: 1rem;
-      border-radius: 12px;
-      margin-top: 2rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
+  .supported h2 { color: #fff; }
+  .supported ul { list-style-type: none; padding: 0; }
+  .supported li { padding: 0.5rem 0; font-weight: bold; font-size: 1.1rem; }
 
-    .supported h2 {
-      color: #fff;
-    }
-
-    .supported ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .supported li {
-      padding: 0.5rem 0;
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
-
-    #message {
-      margin-top: 1rem;
-      font-size: 1.1rem;
-    }
-  </style>
+  #message { margin-top: 1rem; font-size: 1.1rem; }
+</style>
 </head>
 
 <body>
-  <header>
-    <h1>📚 Free WebNovel PDF Downloader</h1>
-  </header>
+<header>
+  <h1>📚 Free WebNovel Downloader</h1>
+</header>
 
-  <main>
-    <p>Paste your WebNovel link below to extract and download it as a PDF.</p>
+<main>
+  <p>Paste your WebNovel link below to extract and download it.</p>
 
-    <input type="text" id="novelUrl" placeholder="Enter novel URL..." />
-    <button onclick="downloadNovel()">Download PDF</button>
+  <input type="text" id="novelUrl" placeholder="Enter novel URL..." />
+  <button onclick="downloadNovel('pdf')">Download PDF</button>
+  <button onclick="downloadNovel('epub')">Download EPUB</button>
 
-    <p id="message"></p>
+  <p id="message"></p>
 
-    <div class="supported">
-      <h2>🌈 Supported Sites</h2>
-      <ul>
-        <li>✅ FreeWebNovel.com</li>
-        <li>✅ NovelNext.com</li>
-        <li>✅ WebNovel.com</li>
-        <li>✅ ReadNovelFull.com</li>
-      </ul>
-    </div>
-  </main>
+  <div class="supported">
+    <h2>🌈 Supported Sites</h2>
+    <ul>
+      <li>✅ FreeWebNovel.com</li>
+      <li>✅ NovelNext.com</li>
+      <li>✅ WebNovel.com</li>
+      <li>✅ ReadNovelFull.com</li>
+    </ul>
+  </div>
+</main>
 
-  <footer>
-    <p>⚡ Built with ❤️ by FreeWebNovel</p>
-  </footer>
+<footer>
+  <p>⚡ Built with ❤️ by FreeWebNovel</p>
+</footer>
 
-  <script>
-    const backendUrl = "https://hypoplastic-twanna-uneclectic.ngrok-free.dev";
+<script>
+  const backendUrl = "https://hypoplastic-twanna-uneclectic.ngrok-free.dev";
 
-    async function downloadNovel() {
-      const url = document.getElementById('novelUrl').value.trim();
-      const message = document.getElementById('message');
+  async function downloadNovel(format) {
+    const url = document.getElementById('novelUrl').value.trim();
+    const message = document.getElementById('message');
 
-      if (!url) {
-        message.textContent = "❌ Please enter a novel URL first!";
-        return;
-      }
+    if (!url) {
+      message.textContent = "❌ Please enter a novel URL first!";
+      return;
+    }
 
-      message.textContent = "⏳ Extracting novel, please wait...";
+    message.textContent = "⏳ Extracting novel, please wait...";
 
-      try {
-        const response = await fetch(`${backendUrl}/extract`, {
+    try {
+      const response = await fetch(`${backendUrl}/extract`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
+      });
+
+      const data = await response.json();
+
+      if (data.title) {
+        message.innerHTML = `✅ Extracted: <b>${data.title}</b> — preparing ${format.toUpperCase()}...`;
+
+        const downloadResponse = await fetch(`${backendUrl}/download-${format}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url })
+          body: JSON.stringify({
+            title: data.title,
+            author: data.author || "Unknown",
+            description: data.description || "No description"
+          })
         });
 
-        const data = await response.json();
+        const blob = await downloadResponse.blob();
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${data.title}.${format}`;
+        link.click();
 
-        if (data.title) {
-          message.innerHTML = `✅ Extracted: <b>${data.title}</b> — now preparing PDF...`;
-
-          const pdfResponse = await fetch(`${backendUrl}/download-pdf`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              title: data.title,
-              author: data.author || "Unknown",
-              description: data.description || "No description"
-            })
-          });
-
-          const blob = await pdfResponse.blob();
-          const link = document.createElement('a');
-          link.href = URL.createObjectURL(blob);
-          link.download = `${data.title}.pdf`;
-          link.click();
-
-          message.textContent = "✅ PDF downloaded successfully!";
-        } else {
-          message.textContent = "❌ Failed to extract the novel.";
-        }
-      } catch (error) {
-        message.textContent = "⚠️ Error connecting to backend. Make sure it's running.";
-        console.error(error);
+        message.textContent = `✅ ${format.toUpperCase()} downloaded successfully!`;
+      } else {
+        message.textContent = "❌ Failed to extract the novel.";
       }
+    } catch (error) {
+      message.textContent = "⚠️ Error connecting to backend. Make sure it's running.";
+      console.error(error);
     }
-  </script>
+  }
+</script>
 </body>
 </html>
 
